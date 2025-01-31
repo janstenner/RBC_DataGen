@@ -151,7 +151,13 @@ function generate_data()
     global frames_to_collect
     global start_frame
 
-    global sim_results = zeros(Float32,Nx,Nz,5,frames_to_collect,runs)
+    if collect_pressure
+        channels = 5
+    else
+        channels = 3
+    end
+
+    global sim_results = zeros(Float32,Nx,Nz,channels,frames_to_collect,runs)
 
     for n in 1:runs
         model = NonhydrostaticModel(; grid,
